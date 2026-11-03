@@ -11,6 +11,17 @@ Before we proceed any further, >>
 
 Ground truth: in the dataset this line actually continues `hear me speak.`
 
+## Expected vs. model output
+
+| Source | Continuation after the prompt |
+|---|---|
+| Expected (real text) | `hear me speak.` |
+| Bigram output | `fu ay IIn eall Clloimeabs bind mechithisur ig...` |
+| LSTM output | `our cheek earth?...` |
+| Transformer output | `full well....` |
+
+None of the models reproduce the real line exactly — that is correct behavior; they generate plausible new text rather than memorizing the data. The full generations follow.
+
 ## Bigram
 
 ```

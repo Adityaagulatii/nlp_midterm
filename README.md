@@ -151,6 +151,19 @@ continues `hear me speak.`
 
 **Prompt:** `First Citizen:\nBefore we proceed any further, ▮`
 
+| Source | Continuation after the prompt |
+|---|---|
+| **Expected (real text)** | `hear me speak.` |
+| **Bigram** output | `fu ay IIn eall Clloimeabs bind...` (nonsense) |
+| **LSTM** output | `our cheek earth?` (real words, wrong) |
+| **Transformer** output | `full well.` (real phrase, grammatical) |
+
+None of the models reproduce `hear me speak.` exactly — and that is the
+*correct* behavior. These models generate plausible new text; they do not
+memorize and retrieve the training data (reproducing the line verbatim would be
+a sign of overfitting). What the test shows is the quality gradient in *how*
+each one continues. The full generations are below.
+
 **Bigram** — ignores the prompt entirely (it sees only the last character, a
 space) and produces letter-soup:
 ```

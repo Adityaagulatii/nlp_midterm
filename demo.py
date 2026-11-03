@@ -28,6 +28,7 @@ DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 # A real line from the start of the Tiny Shakespeare dataset. In the dataset
 # the actual continuation is "hear me speak." — a useful ground truth.
 PROMPT = "First Citizen:\nBefore we proceed any further, "
+EXPECTED = "hear me speak."     # the real continuation in the dataset
 N_GENERATE = 220
 SEED = 0
 
@@ -72,12 +73,32 @@ def main():
     lines.append("```")
     lines.append(
         "\nGround truth: in the dataset this line actually continues "
-        "`hear me speak.`\n"
+        f"`{EXPECTED}`\n"
     )
 
+    # first pass: generate each continuation and keep its opening snippet
+    continuations = {}
     for name, model in models.items():
         full = vocab.decode(continue_prompt(model, prompt_ids))
-        continuation = full[len(PROMPT):]         # only the generated part
+        continuations[name] = full[len(PROMPT):]  # only the generated part
+
+    # summary table: expected line vs. what each model produced
+    lines.append("## Expected vs. model output\n")
+    lines.append("| Source | Continuation after the prompt |")
+    lines.append("|---|---|")
+    lines.append(f"| Expected (real text) | `{EXPECTED}` |")
+    for name in models:
+        snippet = continuations[name].strip().splitlines()[0][:45]
+        lines.append(f"| {name} output | `{snippet}...` |")
+    lines.append(
+        "\nNone of the models reproduce the real line exactly — that is "
+        "correct behavior; they generate plausible new text rather than "
+        "memorizing the data. The full generations follow.\n"
+    )
+
+    # full generations
+    for name in models:
+        continuation = continuations[name]
         print(f"\n===== {name} =====")
         print(repr(PROMPT) + "  >>")
         print(continuation)
