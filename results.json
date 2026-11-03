@@ -1,0 +1,32 @@
+{
+  "Bigram": {
+    "model": "Bigram",
+    "train_loss": 2.4581,
+    "val_loss": 2.4892,
+    "train_time_sec": 26.1,
+    "parameters": 4225,
+    "throughput_tokens_per_sec": 48950,
+    "peak_gpu_mem_mb": 0,
+    "sample": "\n\n\nCExthy brid owindakis by bth\n\nHAPet bobe d e.\nS:\nO:\nIS:\nFalatanss:\nWanthar u qur, vet?\nF dilasoate awice my.\n\nHastarom oroup\nYowhthetof isth ble mil ndill, ath ireeesenghin lat Heriliovets, and Win nghirileranousel lind me l.\nMAshe ce hiry:\nSupr aisspllw y.\nHentous n Boopetelaves\nMPOLI s, d mothakleo Windo whth eisbyo wie m dourive we higend t so mower; te\n\nAN ad nterupirf s ar igr t m:\n\nThiny aleronth,\nMad\nRD:\n\nWISo myrangoube!\nKENoby ak\nSadsal thes ghesthidin couk ay aney RDUSts I fr t ce.\nJ"
+  },
+  "LSTM": {
+    "model": "LSTM",
+    "train_loss": 1.2774,
+    "val_loss": 1.5239,
+    "train_time_sec": 101.7,
+    "parameters": 946625,
+    "throughput_tokens_per_sec": 120858,
+    "peak_gpu_mem_mb": 128,
+    "sample": "\nClown:\nRead cowful, O lo, being it was been evaligence?\n\nFirst Shepard:\nThe usure her by their caues with my father comzong hence,\nFromful thy covering will, even well, I intend Hereful by Saint\nWill you go want well: now, all thus, court:\nThese baise have denevingure Bona tell\nIs not the odligenter of your whit evils,\nSome of this sweet precespion of his butterandness,\nWhich armiored my mother fled at this Prince, Somerry\nTo be aslied in a rosely, is a formining stray.\n\nANGELO:\nThe hand for his"
+  },
+  "Transformer": {
+    "model": "Transformer",
+    "train_loss": 1.2091,
+    "val_loss": 1.5095,
+    "train_time_sec": 750.0,
+    "parameters": 2689985,
+    "throughput_tokens_per_sec": 54612,
+    "peak_gpu_mem_mb": 901,
+    "sample": "\n\nWARWICK:\nTitle, March tills he with so trial,\nAnd take a got of the cage noble hour.\nAway, adily, futt shards o' the dark.\n\nQUEEN ELIZABETH:\nAnd all these interchanges whiles breath shall\nseemst cort of a sin.\n\nFRORIZUS:\nEver execution would I achieful affect wind.\n\nFourth Ghost time, Aumerle's stay.\n\nMISTRESSS:\nO is hand!\n\nLUCIO:\nO, as it that yet to follow the kind mock'd,\nIt bushin it relignly to dish though the light,\nPursuius my bust of blooding.\n\nCitizens:\nToo, brother!\n\nClown:\nMords: or "
+  }
+}

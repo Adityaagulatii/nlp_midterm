@@ -1,0 +1,32 @@
+Device: cuda | Vocab size: 65
+LSTM parameters: 946,625
+step     0 | train 4.1694 | val 4.1690
+step   500 | train 1.5561 | val 1.7046
+step  1000 | train 1.4218 | val 1.6030
+step  1500 | train 1.3627 | val 1.5636
+step  2000 | train 1.3265 | val 1.5408
+step  2500 | train 1.2978 | val 1.5260
+
+Final | train 1.2774 | val 1.5239 | time 101.7s
+Throughput: 120,858 tokens/s | Peak GPU mem: 128 MB
+
+----- generated sample (500 chars) -----
+
+Clown:
+Read cowful, O lo, being it was been evaligence?
+
+First Shepard:
+The usure her by their caues with my father comzong hence,
+Fromful thy covering will, even well, I intend Hereful by Saint
+Will you go want well: now, all thus, court:
+These baise have denevingure Bona tell
+Is not the odligenter of your whit evils,
+Some of this sweet precespion of his butterandness,
+Which armiored my mother fled at this Prince, Somerry
+To be aslied in a rosely, is a formining stray.
+
+ANGELO:
+The hand for his
+----------------------------------------
+
+Saved results for 'LSTM' -> c:\Users\adity\Downloads\nlp_midterm\results.json

@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.venv/
+venv/
+
+# Local editor / OS
+.vscode/
+.DS_Store
+
+# Dataset is downloaded automatically by data.py on first run.
+# Comment the next line out if you prefer to commit it (~1.1 MB).
+input.txt
+
+# Separate course lab, not part of this submission
+Lab_9.ipynb

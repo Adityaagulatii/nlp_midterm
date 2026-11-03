@@ -1,0 +1,49 @@
+Device: cuda | Vocab size: 65
+Transformer parameters: 2,689,985
+step     0 | train 4.3069 | val 4.3105
+step   500 | train 1.7722 | val 1.9058
+step  1000 | train 1.5308 | val 1.7122
+step  1500 | train 1.4259 | val 1.6355
+step  2000 | train 1.3660 | val 1.5890
+step  2500 | train 1.3258 | val 1.5507
+step  3000 | train 1.2926 | val 1.5308
+step  3500 | train 1.2660 | val 1.5314
+step  4000 | train 1.2480 | val 1.5176
+step  4500 | train 1.2263 | val 1.5190
+
+Final | train 1.2091 | val 1.5095 | time 750.0s
+Throughput: 54,612 tokens/s | Peak GPU mem: 901 MB
+
+----- generated sample (500 chars) -----
+
+
+WARWICK:
+Title, March tills he with so trial,
+And take a got of the cage noble hour.
+Away, adily, futt shards o' the dark.
+
+QUEEN ELIZABETH:
+And all these interchanges whiles breath shall
+seemst cort of a sin.
+
+FRORIZUS:
+Ever execution would I achieful affect wind.
+
+Fourth Ghost time, Aumerle's stay.
+
+MISTRESSS:
+O is hand!
+
+LUCIO:
+O, as it that yet to follow the kind mock'd,
+It bushin it relignly to dish though the light,
+Pursuius my bust of blooding.
+
+Citizens:
+Too, brother!
+
+Clown:
+Mords: or 
+----------------------------------------
+
+Saved results for 'Transformer' -> C:\Users\adity\Downloads\nlp_midterm\results.json
