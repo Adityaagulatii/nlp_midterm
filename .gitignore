@@ -9,9 +9,8 @@ venv/
 .vscode/
 .DS_Store
 
-# Dataset is downloaded automatically by data.py on first run.
-# Comment the next line out if you prefer to commit it (~1.1 MB).
-input.txt
+# Dataset (input.txt, ~1.1 MB) is committed to the repo so the project is
+# self-contained. data.py still auto-downloads it if the file is missing.
 
 # Separate course lab, not part of this submission
 Lab_9.ipynb

@@ -28,10 +28,10 @@ plain-text file, a single character set).
   newline).
 - **Split:** 90% train (1,003,854 chars) / 10% validation (111,540 chars), by
   position, no shuffle.
-- **Download:** handled automatically — the first run of any script fetches
-  `input.txt` from the public `char-rnn` repository
-  (`https://raw.githubusercontent.com/karpathy/char-rnn/master/data/tinyshakespeare/input.txt`)
-  and caches it locally.
+- **Data file:** `input.txt` is committed to this repo, so the project is
+  self-contained. If it is ever missing, the first run of any script
+  re-downloads it automatically from the public `char-rnn` repository
+  (`https://raw.githubusercontent.com/karpathy/char-rnn/master/data/tinyshakespeare/input.txt`).
 
 A useful reference point: a model that knows nothing and guesses uniformly
 over 65 characters has loss ≈ ln(65) ≈ **4.17**. Every model should beat this;
@@ -207,7 +207,8 @@ wrote vs. what AI drafted, and the concepts I made sure I understand — are in
 
 ```
 .
-├── data.py            # dataset: download, vocab (stoi/itos), split, get_batch
+├── input.txt          # Tiny Shakespeare dataset (~1.1 MB, committed)
+├── data.py            # dataset: load/download, vocab (stoi/itos), split, get_batch
 ├── bigram.py          # Model 1: bigram language model
 ├── lstm.py            # Model 2: LSTM language model
 ├── transformer.py     # Model 3: small GPT-style transformer
