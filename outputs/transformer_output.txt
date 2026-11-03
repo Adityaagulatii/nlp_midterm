@@ -11,8 +11,8 @@ step  3500 | train 1.2660 | val 1.5314
 step  4000 | train 1.2480 | val 1.5176
 step  4500 | train 1.2263 | val 1.5190
 
-Final | train 1.2091 | val 1.5095 | time 750.0s
-Throughput: 54,612 tokens/s | Peak GPU mem: 901 MB
+Final | train 1.2091 | val 1.5095 | time 751.6s
+Throughput: 54,500 tokens/s | Peak GPU mem: 901 MB
 
 ----- generated sample (500 chars) -----
 
@@ -45,5 +45,6 @@ Too, brother!
 Clown:
 Mords: or 
 ----------------------------------------
+Saved checkpoint -> C:\Users\adity\Downloads\nlp_midterm\ckpts\transformer.pt
 
 Saved results for 'Transformer' -> C:\Users\adity\Downloads\nlp_midterm\results.json

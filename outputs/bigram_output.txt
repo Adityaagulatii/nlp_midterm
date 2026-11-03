@@ -11,8 +11,8 @@ step  3500 | train 2.4714 | val 2.4906
 step  4000 | train 2.4714 | val 2.4742
 step  4500 | train 2.4667 | val 2.4884
 
-Final | train 2.4581 | val 2.4892 | time 26.1s
-Throughput: 48,950 tokens/s | Peak GPU mem: 0 MB
+Final | train 2.4581 | val 2.4892 | time 25.9s
+Throughput: 49,515 tokens/s | Peak GPU mem: 0 MB
 
 ----- generated sample (500 chars) -----
 
@@ -46,5 +46,6 @@ KENoby ak
 Sadsal thes ghesthidin couk ay aney RDUSts I fr t ce.
 J
 ----------------------------------------
+Saved checkpoint -> C:\Users\adity\Downloads\nlp_midterm\ckpts\bigram.pt
 
-Saved results for 'Bigram' -> c:\Users\adity\Downloads\nlp_midterm\results.json
+Saved results for 'Bigram' -> C:\Users\adity\Downloads\nlp_midterm\results.json

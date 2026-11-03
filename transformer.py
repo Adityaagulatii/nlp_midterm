@@ -285,6 +285,12 @@ def main():
     print(sample)
     print("----------------------------------------")
 
+    # ----- save a checkpoint so demo.py can reload this trained model -----
+    ckpt_dir = os.path.join(os.path.dirname(__file__), "ckpts")
+    os.makedirs(ckpt_dir, exist_ok=True)
+    torch.save(model.state_dict(), os.path.join(ckpt_dir, "transformer.pt"))
+    print(f"Saved checkpoint -> {os.path.join(ckpt_dir, 'transformer.pt')}")
+
     save_results({
         "model": "Transformer",
         "train_loss": round(final["train"], 4),

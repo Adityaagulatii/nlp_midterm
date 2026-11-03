@@ -7,8 +7,8 @@ step  1500 | train 1.3627 | val 1.5636
 step  2000 | train 1.3265 | val 1.5408
 step  2500 | train 1.2978 | val 1.5260
 
-Final | train 1.2774 | val 1.5239 | time 101.7s
-Throughput: 120,858 tokens/s | Peak GPU mem: 128 MB
+Final | train 1.2774 | val 1.5239 | time 106.3s
+Throughput: 115,605 tokens/s | Peak GPU mem: 128 MB
 
 ----- generated sample (500 chars) -----
 
@@ -28,5 +28,6 @@ To be aslied in a rosely, is a formining stray.
 ANGELO:
 The hand for his
 ----------------------------------------
+Saved checkpoint -> C:\Users\adity\Downloads\nlp_midterm\ckpts\lstm.pt
 
-Saved results for 'LSTM' -> c:\Users\adity\Downloads\nlp_midterm\results.json
+Saved results for 'LSTM' -> C:\Users\adity\Downloads\nlp_midterm\results.json

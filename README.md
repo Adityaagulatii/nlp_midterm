@@ -139,8 +139,62 @@ LUCIO:
 O, as it that yet to follow the kind mock'd,
 ```
 
-Full outputs are in [outputs/](outputs/) and the auto-generated comparison in
-[outputs/comparison.md](outputs/comparison.md).
+Full run logs for each model are in [outputs/](outputs/).
+
+### Same-prompt test (all three continue the *same* line)
+
+To compare the models fairly, [demo.py](demo.py) primes all three with one
+identical real line from the dataset and asks each to generate the next 220
+characters — **same prompt, same number of characters, same random seed**, so
+any difference comes only from the model. In the dataset this line actually
+continues `hear me speak.`
+
+**Prompt:** `First Citizen:\nBefore we proceed any further, ▮`
+
+**Bigram** — ignores the prompt entirely (it sees only the last character, a
+space) and produces letter-soup:
+```
+First Citizen:
+Before we proceed any further, fu ay IIn eall Clloimeabs bind mechithisur ig wen. n;
+Ag's,
+Swant
+```
+
+**LSTM** — real words, real speaker names, clean line structure, but it drops
+the thread of the opening sentence and wanders into new speakers:
+```
+First Citizen:
+Before we proceed any further, our cheek earth?
+
+HASTINGS:
+Fellow; he's rewards controud, for sister.
+
+MENENIUS:
+This is the shear but stopp;
+```
+
+**Transformer** — completes the sentence with a real phrase (`full well.`) and
+holds the most coherent dialogue, with correctly formatted, real character
+names:
+```
+First Citizen:
+Before we proceed any further, full well.
+Gentlemen, God's brother! how is giner?
+
+NORTHUMBERLAND:
+And read for steward, the branch's death!
+
+LADY CAPULET:
+How now?
+
+MERCUTIO:
+Was this be?
+```
+
+The progression is exactly what the loss numbers predict: the bigram cannot use
+the prompt at all, the LSTM uses recent context but loses longer structure, and
+the transformer best continues the actual sentence and sustains coherent form.
+Full output: [outputs/same_prompt_test.md](outputs/same_prompt_test.md).
 
 ## Analysis
 
@@ -213,8 +267,9 @@ wrote vs. what AI drafted, and the concepts I made sure I understand — are in
 ├── lstm.py            # Model 2: LSTM language model
 ├── transformer.py     # Model 3: small GPT-style transformer
 ├── compare.py         # Hour 7: builds the comparison report from results.json
+├── demo.py            # same-prompt test: all three continue one identical line
 ├── results.json       # metrics + samples, written by the model scripts
-├── outputs/           # saved run logs and comparison.md
+├── outputs/           # saved run logs + same-prompt test
 ├── ai_use_summary.md  # responsible-AI-use documentation
 ├── requirements.txt
 └── README.md
@@ -227,7 +282,8 @@ pip install -r requirements.txt   # torch
 python bigram.py                  # trains Model 1, writes results.json + outputs/
 python lstm.py                    # trains Model 2
 python transformer.py             # trains Model 3
-python compare.py                 # builds outputs/comparison.md
+python compare.py                 # builds the comparison report locally
+python demo.py                    # same-prompt test (needs the 3 checkpoints)
 ```
 
 A GPU is recommended for the transformer (CPU works but is slow). Each script
