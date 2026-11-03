@@ -1,73 +1,108 @@
 # AI-Use Summary
 
-This document explains how I used an AI assistant (Claude, via Claude Code) on
-this midterm project, and which parts I directed, understood, edited, and
-verified myself. I used AI as a pair-programming and tutoring tool, not as a
-way to skip the thinking the assignment is testing.
+This document explains honestly how I used an AI assistant (Claude, via Claude
+Code) on this midterm, and which parts I wrote, edited, debugged, or understood
+myself. I used AI as a pair-programming and tutoring tool. I directed the
+project, made every design decision, interpreted all results, and wrote the
+analysis and reflections in my own words. AI wrote most of the first-draft code
+and prose, which I then reviewed and revised.
 
 ## How I worked
 
-I ran the project as a guided, step-by-step discussion. Before writing any
-code I asked the assistant to walk me through each section — the task, the
-dataset, and each of the three models — and I made the design decisions at
-each fork. The code was then written against those decisions and I ran,
-inspected, and reasoned about every result.
+I deliberately ran the project as a **step-by-step discussion before any code
+was written**. I asked the assistant to walk me through each section — the
+task, the dataset, and each of the three models — and I made the decision at
+each fork before moving on. Only after I had chosen a direction did we
+implement it. I ran every script, read every output, and decided what to change
+next.
 
 ## Decisions I made myself
 
-- **Task framing:** character-level next-character prediction (vs. token-level),
-  after weighing vocabulary size, interpretability of the bigram, and training
-  speed.
-- **Dataset:** Tiny Shakespeare, for zero cleaning and a clear three-way
-  comparison.
-- **Model 2 choice:** LSTM (over a plain RNN or a feedforward window), because
-  it gives a clean "sequential memory" contrast between the bigram and the
-  transformer.
-- **What metrics to report:** I asked for compute metrics (throughput and peak
-  GPU memory) in addition to loss and wall-clock time, so the comparison shows
-  the cost of each architecture, not only its accuracy.
+- **Task framing:** character-level (not token-level) next-character
+  prediction, after weighing vocabulary size, interpretability, and speed.
+- **Dataset:** Tiny Shakespeare, for zero cleaning and a clear comparison. I
+  also asked where the data came from and confirmed it is downloaded from a
+  public source, then decided to **commit `input.txt`** so the repo is
+  self-contained.
+- **Model 2 choice:** LSTM over a plain RNN or a feedforward window.
+- **Project structure:** I asked for each model in its **own separate file**,
+  and for the small transformer to follow the **self-attention style from our
+  course Lab 9** (scaled dot-product attention, sinusoidal positional encoding,
+  multi-head attention, encoder/decoder block).
+- **Metrics:** I asked to add **compute metrics** — throughput (tokens/sec) and
+  peak GPU memory — on top of loss and training time, because I wanted the
+  comparison to show the *cost* of each architecture, not just its accuracy.
+- **A fair test:** I asked for a **same-prompt test** that feeds one identical
+  real line from the dataset to all three models, so the comparison of
+  generated text is controlled rather than cherry-picked.
+
+## Problems I caught and directed the fix for
+
+- **Undertrained transformer.** On the first run the transformer scored *worse*
+  than the LSTM (val loss 1.60 vs 1.52). We identified that it had not
+  converged (the learning rate was too low and it needed more steps), and I had
+  it re-trained with a higher learning rate until it genuinely beat the LSTM. I
+  understood *why* this mattered: an undertrained transformer losing to an LSTM
+  would misrepresent the whole point of the project.
+- **Interpreting the same-prompt test.** When no model reproduced the real line
+  (`hear me speak.`), I understood this is *correct* behavior — the models
+  generate plausible new text and should not memorize the data — and I asked
+  for that point to be made explicit.
+- **Repository clean-up.** I had a redundant auto-generated report
+  (`comparison.md`) removed because its content was already in the README, and
+  I caught a **broken (404) link** to it in the README and had it fixed. I also
+  had a separate course lab excluded from the repo.
 
 ## What the AI helped with
 
 - **Explanations.** It explained what information each model uses and ignores,
-  why the bigram's understanding is limited, why an LSTM still struggles with
-  long dependencies, and how self-attention removes that bottleneck. I used
-  these explanations to write the analysis in my own words.
-- **Implementation.** It helped write the three model scripts and the shared
-  data/comparison utilities, following the self-attention style from our course
-  Lab 9 (scaled dot-product attention, sinusoidal positional encoding,
-  multi-head attention, encoder/decoder block). I adapted the Lab 9 *classifier*
-  pattern into an *autoregressive* language model myself in discussion —
-  swapping the padding mask for a causal mask and the CLS head for a
-  per-position output layer.
-- **Debugging and consistency.** It kept the three models on an identical
-  training/evaluation protocol (same vocab, same split, same loss, same batch
-  sampler) so the comparison is fair.
+  why the bigram is limited, why an LSTM still struggles with long
+  dependencies, and how self-attention removes that bottleneck. I used these to
+  build my own understanding and then wrote the analysis myself.
+- **First-draft code.** It wrote the initial versions of `data.py`,
+  `bigram.py`, `lstm.py`, `transformer.py`, `compare.py`, and `demo.py`
+  following my decisions, and kept all three models on an identical
+  training/evaluation protocol so the comparison is fair.
+- **Mechanics.** It handled the Git commits and the repetitive boilerplate.
 
-## What I did and verified myself
+## What I wrote and edited myself
 
-- Ran every script, read the training curves, and confirmed each model beats
-  the random-guessing baseline (loss ≈ ln(65) ≈ 4.17).
-- Read the generated samples and checked that they match the expected
-  behavior: the bigram produces letter-pairs only, the LSTM produces real
-  words, the transformer holds longer structure.
-- Confirmed the numbers in the results table against the raw run outputs in
+- **The Analysis section of the README.** I revised the AI's draft in my own
+  words and added my own opinions — for example, that on a dataset this small
+  the LSTM is close to the transformer; that the metric improvement may not
+  justify the extra compute and time on a small sample; that the models should
+  be tested on a larger real-world corpus (research documents or reports) to
+  see attention's full benefit; and a point about token-level cost trade-offs.
+- **The reflection "What I learned."** I wrote that metrics are not always the
+  best judge in NLP, and that seeing the actual generated output — where the
+  transformer was clearly the most realistic — changed how I judge a model's
+  performance.
+- Where I felt Claude's draft did not capture my own view, I rewrote it in my
+  own words rather than accepting it.
+
+## What I verified myself
+
+- Ran every script and confirmed each model beats the random-guessing baseline
+  (loss ≈ ln(65) ≈ 4.17).
+- Read the generated samples and the same-prompt test and confirmed the
+  expected progression: bigram → letter-pairs only; LSTM → real words; and
+  transformer → the most coherent, realistic text.
+- Checked the numbers in the results table against the raw run logs in
   `outputs/`.
-- Wrote and edited the reflection and README analysis in my own words.
 
 ## Parts I made sure I understand
 
 - Why a bigram is a `(vocab × vocab)` table and what each row means.
 - How an LSTM's hidden state carries context and why gradients fade over long
   distances.
-- How scaled dot-product attention computes `softmax(QKᵀ/√d)·V`, why the causal
-  mask is needed for next-token prediction, and why positional encoding is
+- How scaled dot-product attention computes `softmax(QKᵀ/√d)·V`, why a causal
+  mask is needed for next-character prediction, and why positional encoding is
   required because attention is otherwise order-blind.
 
 ## Honesty note
 
-AI wrote a large share of the boilerplate code and first-draft explanations.
-My contribution is the direction of the project, the architecture and metric
-decisions, the adaptation from the Lab 9 classifier to a language model,
-running and interpreting all experiments, and the written analysis. I can
+AI wrote a large share of the code and the first drafts of the explanations. My
+own contribution is the direction of the project, every design and metric
+decision, catching and fixing the problems above, interpreting all the
+experiments, and writing the analysis and reflections in my own words. I can
 explain every file in this repository and why it is there.
