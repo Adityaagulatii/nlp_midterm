@@ -214,39 +214,56 @@ Full output: [outputs/same_prompt_test.md](outputs/same_prompt_test.md).
 **Which model performed best?** The **Transformer** (lowest validation loss,
 1.5095). Loss falls monotonically as the models gain context: 1 character
 (bigram) → whole prefix in a hidden state (LSTM) → direct attention over the
-window (transformer).
+window (transformer). That said, the LSTM (1.5239) is not far behind the
+transformer — on a corpus this small the two are close.
 
 **Which model trained fastest?** The **Bigram** (26.1s) — one table lookup per
-step — but it learns almost nothing. Note a nuance in the throughput numbers:
-the LSTM has the *highest* throughput (120k tok/s) because its per-step work is
-cheap and it ran at a shorter context; the transformer processes fewer
-tokens/sec because attention and the FFN do far more work per step.
+step — but it learns almost nothing. There is also a nuance in the throughput
+numbers: the LSTM has the *highest* throughput (120k tok/s) because its
+per-step work is cheap and it ran at a shorter context, while the transformer
+processes fewer tokens/sec because attention and the feed-forward layers do far
+more work per step.
 
 **Which model generated the most realistic text?** The **Transformer**. The
 bigram makes letter-pairs with no real words; the LSTM makes real words and
 keeps the `SPEAKER:` format; the transformer additionally holds longer-range
-coherence — real speaker names and more consistent dialogue turns.
+coherence — real speaker names and more consistent dialogue turns. The
+same-prompt test confirms this: given one real line from the dataset, the
+transformer produced the most realistic continuation, better than the LSTM.
 
 **What did the transformer improve?** It lowered validation loss from 2.4892
 (bigram) and 1.5239 (LSTM) to 1.5095. The gain comes from **self-attention**:
 any position can look *directly* at any earlier position in one step, instead
 of relying on a one-character window (bigram) or a single fixed-size memory
-vector squeezed through many sequential updates (LSTM).
+vector squeezed through many sequential updates (LSTM). Because this dataset is
+small, the loss gap between the LSTM and the transformer is narrow. To really
+see how much attention helps, the models would need to be tested on a larger,
+real-world corpus — such as research documents or reports — where longer
+dependencies matter more.
 
 **Was the improvement worth the added complexity?** On this small dataset,
 **yes, but modestly**. The transformer uses ~2.8× the LSTM's parameters and
-~7× its training time to reach a loss only slightly lower (1.5095 vs 1.5239) —
-though its samples are clearly more coherent. On a tiny corpus the margin is
-small; the architecture's real advantage grows with more data and longer
-context. The honest takeaway is that attention *wins here and scales far
-better*, but it isn't free.
+~7× its training time to reach a loss only ~0.014 lower (1.5095 vs 1.5239).
+Judged on metrics alone, that extra training time, parameter count, and compute
+may not justify so small a loss improvement on a sample this small. But
+qualitatively the transformer clearly won the same-prompt test with the most
+realistic output, and I would expect the loss gap to widen as the dataset
+grows — so on a larger corpus the trade-off should become clearly worth it.
 
-**What did I learn about attention?** Attention replaces sequential memory with
-direct, content-based lookup: each position computes how relevant every other
-position is and reads a weighted mixture of them, so long-range dependencies no
-longer have to survive a long chain of recurrent updates. Because attention
-alone is order-blind, it must be paired with positional encoding. Together,
-that is what lets the transformer beat the LSTM on the very same task.
+**What did I learn about attention?** Attention increases the computation and
+training time a model needs, so on a small dataset its metric gain is modest —
+but I think the cost is still worth it, because it noticeably improved the
+realism of the generated text. Mechanically, attention replaces sequential
+memory with direct, content-based lookup: each position computes how relevant
+every other position is and reads a weighted mixture of them, so long-range
+dependencies no longer have to survive a long chain of recurrent updates.
+Because attention alone is order-blind, it must be paired with positional
+encoding. One more thing I learned: at the token level (subword units rather
+than characters) each step covers more text at once, so a transformer's higher
+per-step cost is spread over more content — which can make its compute
+trade-off more favorable than it looks here at the character level. Together,
+that is what lets the transformer beat the LSTM on the very same task, and scale
+better beyond it.
 
 ## What I learned from this project
 
