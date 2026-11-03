@@ -271,10 +271,12 @@ better beyond it.
   uses it** — the single biggest lever here was context, not parameter count.
 - The bigram is a perfect "floor": its immediate plateau (~2.49) shows there is
   simply nothing more to learn from one character.
-- Lower loss shows up visibly in the samples — words forming, then structure,
-  then coherence — which made the abstract loss numbers concrete.
-- Better architectures cost more compute; a fair comparison has to report time
-  and memory, not just accuracy.
+- Metrics — especially in NLP — are not always the best judge. The real
+  question is whether the added computation and time are worth it: in our case
+  the validation-loss difference did not justify the extra time and compute the
+  transformer required. But when I looked at the actual generated output, the
+  transformer was the most realistic, and that changed my view on how to judge
+  a model's performance.
 
 ## How I used AI responsibly
 
@@ -283,8 +285,10 @@ the design decisions (character-level, Tiny Shakespeare, LSTM for Model 2,
 which metrics to report), directed the work step by step, and ran, inspected,
 and interpreted every result myself. When the transformer first underperformed
 because it was undertrained, I diagnosed it and re-ran it with a proper
-learning rate rather than accepting the number. Full details — including what I
-wrote vs. what AI drafted, and the concepts I made sure I understand — are in
+learning rate rather than accepting the number. I tried to write all the
+reflections myself, and where I felt Claude's draft did not capture my own
+view, I added my point of view. Full details — including what I wrote vs. what
+AI drafted, and the concepts I made sure I understand — are in
 [ai_use_summary.md](ai_use_summary.md).
 
 ## Repository structure
