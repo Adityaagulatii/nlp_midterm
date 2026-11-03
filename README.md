@@ -207,7 +207,7 @@ Was this be?
 The progression is exactly what the loss numbers predict: the bigram cannot use
 the prompt at all, the LSTM uses recent context but loses longer structure, and
 the transformer best continues the actual sentence and sustains coherent form.
-Full output: [outputs/same_prompt_test.md](outputs/same_prompt_test.md).
+The test is reproducible by running `python demo.py` after training the models.
 
 ## Analysis
 
@@ -300,7 +300,6 @@ AI drafted, and the concepts I made sure I understand — are in
 ├── bigram.py          # Model 1: bigram language model
 ├── lstm.py            # Model 2: LSTM language model
 ├── transformer.py     # Model 3: small GPT-style transformer
-├── compare.py         # Hour 7: builds the comparison report from results.json
 ├── demo.py            # same-prompt test: all three continue one identical line
 ├── results.json       # metrics + samples, written by the model scripts
 ├── outputs/           # saved run logs + same-prompt test
@@ -316,7 +315,6 @@ pip install -r requirements.txt   # torch
 python bigram.py                  # trains Model 1, writes results.json + outputs/
 python lstm.py                    # trains Model 2
 python transformer.py             # trains Model 3
-python compare.py                 # builds the comparison report locally
 python demo.py                    # same-prompt test (needs the 3 checkpoints)
 ```
 
