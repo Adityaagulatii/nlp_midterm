@@ -265,6 +265,29 @@ trade-off more favorable than it looks here at the character level. Together,
 that is what lets the transformer beat the LSTM on the very same task, and scale
 better beyond it.
 
+## Reflection: what makes transformers powerful for language modeling?
+
+In my project I used a small dataset of Shakespeare, who has a very distinctive
+style. When I compared validation loss across the three models, the improvement
+did not clearly justify the transformer's extra layers, computation, and
+training time — on a dataset this small the loss gap between the LSTM and the
+transformer was narrow.
+
+But when I looked at the actual generated output, the transformer produced the
+most realistic Shakespeare-style text. And because it was trained on such a
+small dataset, I believe that response would become even more realistic with a
+larger corpus.
+
+So adding self-attention may not make the model much more accurate in terms of
+metrics — especially here, where the dataset was small — yet the generated
+output still felt very realistic and closely followed Shakespeare's style. I
+think self-attention is what makes that possible: its context comes from
+directly comparing the patterns between every pair of words, so the model
+learns the style of the writing *as a whole*. This is in contrast to the other
+two models, which only use context from the immediate sequence — the bigram
+sees a single previous character, and the LSTM sees a running summary of the
+sequence, but neither can weigh how every word relates to every other word.
+
 ## What I learned from this project
 
 - A model's power is bounded by **how much context it can use and how well it
