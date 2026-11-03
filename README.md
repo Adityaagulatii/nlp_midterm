@@ -267,26 +267,16 @@ better beyond it.
 
 ## Reflection: what makes transformers powerful for language modeling?
 
-In my project I used a small dataset of Shakespeare, who has a very distinctive
-style. When I compared validation loss across the three models, the improvement
-did not clearly justify the transformer's extra layers, computation, and
-training time. On a dataset this small, the loss gap between the LSTM and the
-transformer was narrow.
+On this small Shakespeare dataset, the validation-loss gap between the LSTM and
+the transformer was narrow, so the metrics alone did not justify the
+transformer's extra layers, computation, and training time.
 
-But when I looked at the actual generated output, the transformer produced the
-most realistic Shakespeare-style text. And because it was trained on such a
-small dataset, I believe that response would become even more realistic with a
-larger corpus.
-
-So adding self-attention may not make the model much more accurate in terms of
-metrics, especially here where the dataset was small, yet the generated output
-still felt very realistic and closely followed Shakespeare's style. I think
-self-attention is what makes that possible: its context comes from directly
-comparing the patterns between every pair of words, so the model learns the
-style of the writing as a whole. This is in contrast to the other two models,
-which only use context from the immediate sequence. The bigram sees a single
-previous character, and the LSTM sees a running summary of the sequence, but
-neither can weigh how every word relates to every other word.
+But the transformer's generated output was clearly the most realistic and best
+captured Shakespeare's style, and I expect that advantage would grow with a
+larger corpus. I think self-attention is why: it compares the patterns between
+every pair of words, so the model learns the style of the writing as a whole,
+rather than relying only on the immediate sequence like the bigram (one
+previous character) or the LSTM (a running summary of the sequence).
 
 ## What I learned from this project
 
